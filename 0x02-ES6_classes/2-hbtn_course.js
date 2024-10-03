@@ -11,7 +11,17 @@ export default class HolbertonCourse {
       throw new Error('length must be a number');
     }
     if (students.constructor === Array) {
-      this._students = students;
+      let x = true;
+      for (const i in students) {
+        if (students[i].constructor !== String) {
+          x = false;
+        }
+      }
+      if (x) {
+        this._students = students;
+      } else {
+        throw new Error('students must be a array');
+      }
     } else {
       throw new Error('students must be a array');
     }
