@@ -1,8 +1,14 @@
-const { uploadPhoto, createUser } = require('./utils');
+import { uploadPhoto, createUser } from './utils';
 
 export default async function asyncUploadUser() {
-  const promm = await Promise.all([uploadPhoto(), createUser()])
-    .then((msg) => ({ photo: msg[0], user: msg[1] }))
-    .catch(() => ({ photo: null, user: null }));
-  return promm;
+  let photo;
+  let user;
+  try {
+    photo = await uploadPhoto();
+    user = await createUser();
+  } catch (error) {
+    photo = null;
+    user = null;
+  }
+  return { photo, user };
 }
